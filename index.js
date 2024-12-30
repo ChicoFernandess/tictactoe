@@ -6,18 +6,52 @@ let currentPlayer = "X";
 
 const checkMove = (playerMoves, move) => playerMoves.includes(move);
 
+/**
+ *
+ * Winning combinations
+ *
+ * [1, 2, 3]
+ * [4, 5, 6]
+ * [7, 8, 9]
+ * [1, 4, 7]
+ * [2, 5, 8]
+ * [3, 6, 9]
+ * [1, 5, 9]
+ * [3, 5, 7]
+ *
+ */
+
 const checkWinner = (playerMoves) => {
   for (const move of playerMoves) {
-    if (checkMove(playerMoves, move + 1) && checkMove(playerMoves, move + 2)) {
+    if (
+      (move === 1 || move === 4 || move === 7) &&
+      checkMove(playerMoves, move + 1) &&
+      checkMove(playerMoves, move + 2)
+    ) {
       return [move, move + 1, move + 2];
     }
-    if (checkMove(playerMoves, move + 3) && checkMove(playerMoves, move + 6)) {
+
+    if (
+      (move === 1 || move === 2 || move === 3) &&
+      checkMove(playerMoves, move + 3) &&
+      checkMove(playerMoves, move + 6)
+    ) {
       return [move, move + 3, move + 6];
     }
-    if (checkMove(playerMoves, move + 4) && checkMove(playerMoves, move + 8)) {
+
+    if (
+      move === 1 &&
+      checkMove(playerMoves, move + 4) &&
+      checkMove(playerMoves, move + 8)
+    ) {
       return [move, move + 4, move + 8];
     }
-    if (checkMove(playerMoves, move + 2) && checkMove(playerMoves, move + 2)) {
+
+    if (
+      move === 3 &&
+      checkMove(playerMoves, move + 2) &&
+      checkMove(playerMoves, move + 2)
+    ) {
       return [move, move + 2, move + 2];
     }
   }
