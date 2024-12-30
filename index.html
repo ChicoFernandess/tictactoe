@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+</head>
+<body>
+    <script src="index.js" defer></script>
+
+    <div class="wrapper">
+        <h1>Tic Tac Toe</h1>
+        <div class="board">
+            <span id="h1" onclick="houseClick('h1')" class="house h1"></span>
+            <span id="h2" onclick="houseClick('h2')" class="house h2"></span>
+            <span id="h3" onclick="houseClick('h3')" class="house h3"></span>
+            <span id="h4" onclick="houseClick('h4')" class="house h4"></span>
+            <span id="h5" onclick="houseClick('h5')" class="house h5"></span>
+            <span id="h6" onclick="houseClick('h6')" class="house h6"></span>
+            <span id="h7" onclick="houseClick('h7')" class="house h7"></span>
+            <span id="h8" onclick="houseClick('h8')" class="house h8"></span>
+            <span id="h9" onclick="houseClick('h9')" class="house h9"></span>
+        </div>
+    </div>
+</body>
+</html>
+
+<style>
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    width: 300px;
+    border: 2px solid black;
+}
+
+.board span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    border: 1px solid black;
+    background-color: lightgray; 
+    cursor: pointer;
+}
+
+.wrapper{
+    justify-items: center;
+    display: grid;
+}
+
+</style>
