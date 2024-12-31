@@ -1,60 +1,27 @@
-const moves = {
-  X: [],
-  O: [],
-};
+const houses = new Array(9).fill("");
 let currentPlayer = "X";
 
-const checkMove = (playerMoves, move) => playerMoves.includes(move);
+const winnerCombinations = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9],
+  [1, 4, 7],
+  [2, 5, 8],
+  [3, 6, 9],
+  [1, 5, 9],
+  [3, 5, 7],
+];
 
-/**
- *
- * Winning combinations
- *
- * [1, 2, 3]
- * [4, 5, 6]
- * [7, 8, 9]
- *
- * [1, 4, 7]
- * [2, 5, 8]
- * [3, 6, 9]
- *
- * [1, 5, 9]
- * [3, 5, 7]
- *
- */
-
-const checkWinner = (playerMoves) => {
-  for (const move of playerMoves) {
-    if (
-      (move === 1 || move === 4 || move === 7) &&
-      checkMove(playerMoves, move + 1) &&
-      checkMove(playerMoves, move + 2)
-    ) {
-      return [move, move + 1, move + 2];
-    }
+const checkWinner = () => {
+  for (const combination of winnerCombinations) {
+    const [cell1, cell2, cell3] = combination;
 
     if (
-      (move === 1 || move === 2 || move === 3) &&
-      checkMove(playerMoves, move + 3) &&
-      checkMove(playerMoves, move + 6)
+      houses[cell1 - 1] !== "" &&
+      houses[cell1 - 1] === houses[cell2 - 1] &&
+      houses[cell1 - 1] === houses[cell3 - 1]
     ) {
-      return [move, move + 3, move + 6];
-    }
-
-    if (
-      move === 1 &&
-      checkMove(playerMoves, move + 4) &&
-      checkMove(playerMoves, move + 8)
-    ) {
-      return [move, move + 4, move + 8];
-    }
-
-    if (
-      move === 3 &&
-      checkMove(playerMoves, move + 2) &&
-      checkMove(playerMoves, move + 4)
-    ) {
-      return [move, move + 2, move + 2];
+      return combination;
     }
   }
 
@@ -72,27 +39,24 @@ const houseClick = (value) => {
   const cellInddex = Number(value.replace("h", ""));
 
   cell.textContent = currentPlayer;
-  moves[currentPlayer].push(cellInddex);
-  moves[currentPlayer].sort((a, b) => a - b);
+  houses[cellInddex - 1] = currentPlayer;
 
-  if (moves[currentPlayer].length >= 3) {
-    const winnerCombination = checkWinner(moves[currentPlayer]);
+  const winnerCombination = checkWinner();
 
-    if (winnerCombination) {
-      for (const winnerIndex of winnerCombination) {
-        const winnerCell = document.getElementById(`h${winnerIndex}`);
-        winnerCell.style.backgroundColor = "lightgreen";
-        winnerCell.style.color = "green";
-      }
-
-      const winnerEl = document.getElementById("winner");
-
-      if (winnerEl) {
-        winnerEl.textContent = `${currentPlayer} won!`;
-      }
-
-      return;
+  if (winnerCombination) {
+    for (const winnerIndex of winnerCombination) {
+      const winnerCell = document.getElementById(`h${winnerIndex}`);
+      winnerCell.style.backgroundColor = "lightgreen";
+      winnerCell.style.color = "green";
     }
+
+    const winnerEl = document.getElementById("winner");
+
+    if (winnerEl) {
+      winnerEl.textContent = `${currentPlayer} won!`;
+    }
+
+    return;
   }
 
   if (currentPlayer === "X") {
