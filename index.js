@@ -24,8 +24,13 @@ function houseClick(value) {
 
     console.log(`${currentPlayer} played on house ${value}`);
 
-    if(playsArray[0] === playsArray[3] && playsArray[0] === playsArray[6]){
-        console.log("You won");
+    // if(playsArray[0] === playsArray[3] && playsArray[0] === playsArray[6]){
+    //     console.log("You won");
+    // }
+
+    if (checkWinner()) {
+        console.log(`${currentPlayer} wins!`);
+        return;
     }
 
     if (currentPlayer === 'X') { // the current player is X so we need to put the varaivel to O so in the next move the O is printed, above the cell.textContent is already X so we can changehere
@@ -34,3 +39,32 @@ function houseClick(value) {
         currentPlayer = 'X';
     }
 }
+
+function checkWinner(){
+    const combinations = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6]  
+    ];
+
+     // Check each winning combination
+     for (const combination of combinations) {
+        const [a, b, c] = combination;
+        if (
+            playsArray[a] !== "i" &&
+            playsArray[a] === playsArray[b] &&
+            playsArray[a] === playsArray[c]
+        ) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+
