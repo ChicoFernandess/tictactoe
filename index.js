@@ -13,9 +13,11 @@ const checkMove = (playerMoves, move) => playerMoves.includes(move);
  * [1, 2, 3]
  * [4, 5, 6]
  * [7, 8, 9]
+ *
  * [1, 4, 7]
  * [2, 5, 8]
  * [3, 6, 9]
+ *
  * [1, 5, 9]
  * [3, 5, 7]
  *
@@ -50,7 +52,7 @@ const checkWinner = (playerMoves) => {
     if (
       move === 3 &&
       checkMove(playerMoves, move + 2) &&
-      checkMove(playerMoves, move + 2)
+      checkMove(playerMoves, move + 4)
     ) {
       return [move, move + 2, move + 2];
     }
@@ -67,10 +69,10 @@ const houseClick = (value) => {
     return;
   }
 
-  const indexNumber = Number(value.replace("h", ""));
+  const cellInddex = Number(value.replace("h", ""));
 
   cell.textContent = currentPlayer;
-  moves[currentPlayer].push(indexNumber);
+  moves[currentPlayer].push(cellInddex);
   moves[currentPlayer].sort((a, b) => a - b);
 
   if (moves[currentPlayer].length >= 3) {
